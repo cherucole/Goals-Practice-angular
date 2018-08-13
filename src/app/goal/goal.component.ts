@@ -1,15 +1,23 @@
 import { Component, OnInit } from '@angular/core';
 import {Goal} from '../goal'
 import {Goals} from '../goals'
+import {GoalService} from '../goals/goal.service';
+import {AlertsService} from '../alert-service/alerts.service'
 
 
 @Component({
   selector: 'app-goal',
   templateUrl: './goal.component.html',
+  providers:[GoalService], //add the providers to the component
   styleUrls: ['./goal.component.css']
 })
 export class GoalComponent implements OnInit {
-    goals = Goals;
+    // goals = Goals;
+    goals:Goal[];
+    alertService:AlertsService;
+     constructor(goalService:GoalService) {
+     this.goals = goalService.getGoals()
+      }
 
     toogleDetails(index){
         this.goals[index].showDescription = !this.goals[index].showDescription;
@@ -25,14 +33,17 @@ export class GoalComponent implements OnInit {
   ngOnInit() {
   }
   deleteGoal(isComplete,index){
-        if (isComplete){
-            let toDelete=confirm(`Are you sure you want to delete ${this.goals[index].name}`)
+          if (isComplete){
 
-            if(toDelete){
-                this.goals.splice(index,1)
-            }
-        }
-    }
+              let toDelete=confirm(`Are you sure you want to delete ${this.goals[index].name}`)
+
+              if(toDelete){
+                  this.goals.splice(index,1)
+                  this.alertService.alertMe("Goal has been deleted")
+              }
+
+          }
+      }
     addNewGoal(goal){
         let goalLength = this.goals.length;
         goal.id=goalLength+1;
@@ -40,4 +51,9 @@ export class GoalComponent implements OnInit {
         this.goals.push(goal)
 
     }
+
+  constructor(goalService:GoalService,alertService:AlertsService) {
+  this.goals = goalService.getGoals();
+  this.alertService = alertService;//make the service available to the class
+   }
 }
