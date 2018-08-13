@@ -8,4 +8,5 @@ export class AlertsService {
    alertMe(message:string){
     alert(message)
   }
+
 }
