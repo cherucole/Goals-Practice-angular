@@ -30,6 +30,9 @@ export class GoalComponent implements OnInit {
    }
    this.http.get<ApiResponse>("https://talaikis.com/api/quotes/random/").subscribe(data=>{
         this.quote= new Quote(data.quote,data.author, data.cat)
+      }, err=>{
+        this.quote= new Quote("Cha muhimu ni uhai", "Cherucole", "Motivation")
+        console.log("Api fetch not successful")
        // Successful API request.
      })
   }
