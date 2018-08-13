@@ -1,31 +1,19 @@
 <h1>My Goals</h1>
 <div class="container">
 
-    <div class="row">
-      <div class="col-md-6">
 
           <app-goal-form (addGoal)="addNewGoal($event)"></app-goal-form>
-      </div>
 
 <hr>
-<div class="col-md-6">
 
-<div class="card" style="width: 28rem;">
-  <div class="card-body">
-    <div class="container row">
       <div *ngFor='let goal of goals;let i = index'>
         <h5  id="{{i}}">{{goal.name}} due on {{goal.completeDate|date}}</h5>
           <!-- <button  (click)='toogleDetails(i)'>Toogle Details</button> -->
 
           <app-goal-details  [goal]='goal' (isComplete)= 'deleteGoal($event,i)'></app-goal-details>
       </div>
-</div>
-</div>
-</div>
 
 
   <p *ngIf='goals.length > 5'>You have too many goals</p>
-</div>
-</div>
 
 </div>
