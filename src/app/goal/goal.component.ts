@@ -22,6 +22,17 @@ export class GoalComponent implements OnInit {
     this.goals = goalService.getGoals();
     this.alertService = alertService;//make the service available to the class
   }
+  ngOnInit() {
+    interface ApiResponse{
+       quote:string;
+       author:string;
+       cat: string
+   }
+   this.http.get<ApiResponse>("https://talaikis.com/api/quotes/random/").subscribe(data=>{
+        this.quote= new Quote(data.quote,data.author, data.cat)
+       // Successful API request.
+     })
+  }
 
   toogleDetails(index) {
     this.goals[index].showDescription = !this.goals[index].showDescription;
@@ -54,14 +65,6 @@ export class GoalComponent implements OnInit {
 
   }
 
-  ngOnInit() {
-    interface ApiResponse{
-       quote:string;
-       author:string
-   }
-  }
-    this.http.get("https://talaikis.com/api/quotes/random/").subscribe(data => {
-      this.quote= new Quote(data.quote,data.author)
-      // Successful API request.
-    })
+
+
 }
