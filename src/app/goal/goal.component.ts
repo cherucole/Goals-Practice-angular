@@ -8,16 +8,17 @@ import {AlertsService} from '../alert-service/alerts.service'
 @Component({
   selector: 'app-goal',
   templateUrl: './goal.component.html',
-  providers:[GoalService], //add the providers to the component
+  providers:[GoalService, AlertsService], //add the providers to the component
   styleUrls: ['./goal.component.css']
 })
 export class GoalComponent implements OnInit {
     // goals = Goals;
     goals:Goal[];
     alertService:AlertsService;
-     constructor(goalService:GoalService) {
-     this.goals = goalService.getGoals()
-      }
+    constructor(goalService:GoalService,alertService:AlertsService) {
+ this.goals = goalService.getGoals();
+ this.alertService = alertService;//make the service available to the class
+  }
 
     toogleDetails(index){
         this.goals[index].showDescription = !this.goals[index].showDescription;
@@ -29,7 +30,10 @@ export class GoalComponent implements OnInit {
            }
            }
 
-  constructor() { }
+           constructor(goalService:GoalService,alertService:AlertsService) {
+           this.goals = goalService.getGoals();
+           this.alertService = alertService;//make the service available to the class
+            }
   ngOnInit() {
   }
   deleteGoal(isComplete,index){
@@ -52,8 +56,5 @@ export class GoalComponent implements OnInit {
 
     }
 
-  constructor(goalService:GoalService,alertService:AlertsService) {
-  this.goals = goalService.getGoals();
-  this.alertService = alertService;//make the service available to the class
-   }
+
 }
