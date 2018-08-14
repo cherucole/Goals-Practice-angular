@@ -6,6 +6,8 @@ import {HttpClientModule} from '@angular/common/http'
 import { NgProgressModule } from '@ngx-progressbar/core';
 import { NgProgressHttpModule } from '@ngx-progressbar/http';
 import { RouterModule, Routes } from '@angular/router';
+import {RoutingModule} from './routing/routing.module'
+
 
 
 import { AppComponent } from './app.component';
@@ -15,14 +17,14 @@ import { DateCountPipe } from './date-count.pipe';
 import { GoalFormComponent } from './goal-form/goal-form.component';
 import { AboutComponent } from './about/about.component';
 import { NotFoundComponent } from './not-found/not-found.component';
-// Defining routes
-const routes:Routes=[
-  {path:"goals",component:GoalComponent},
-  {path:"about",component:AboutComponent},
-  {path:"",redirectTo:"/goals",pathMatch:"full"},
-  {path:'**',component:NotFoundComponent}
-
-  // {path:"form",component:GoalFormComponent}
+// // Defining routes
+// const routes:Routes=[
+//   {path:"goals",component:GoalComponent},
+//   {path:"about",component:AboutComponent},
+//   {path:"",redirectTo:"/goals",pathMatch:"full"},
+//   {path:'**',component:NotFoundComponent}
+//
+//   // {path:"form",component:GoalFormComponent}
 
 
 ]
@@ -41,10 +43,10 @@ const routes:Routes=[
   imports: [
     BrowserModule,
     FormsModule,
+    RoutingModule,
     HttpClientModule,
     NgProgressModule.forRoot(),// normal progress bar
    NgProgressHttpModule // progress bar to load http requests
-   RouterModule.forRoot(routes)
   ],
   providers: [AlertsService], // Add service to providers
   bootstrap: [AppComponent]
